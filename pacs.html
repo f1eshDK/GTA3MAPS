@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTA V Призраки</title>
-    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <title>GTA III Пакеты</title>
+    <link rel="icon" type="image/x-icon" href="favicon_pacs.png">
     <style>
     body {
         margin: 0;
-        padding: 20px;
-        background-color: rgb(58, 75, 82); /* Цвет океана */
+        padding: 0px 20px 20px 20px;
+        background-color:#81c1ea; /* Цвет океана */
         display: flex;
         justify-content: center;
         /* ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ: не дает контенту ломать границы экрана */
@@ -19,13 +19,13 @@
     /* Контейнер карты */
     .map-container {
         position: relative;
-        width: 684px;  
-        height: 1017px; 
+        width: 1024px;  
+        height: 768px; 
         
         /* ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ: предотвращает жесткое растягивание и искажение пропорций */
         max-width: 100%;
         height: auto;
-        aspect-ratio: 684 / 1017;
+        aspect-ratio: 1024 / 768;
 
         transform-origin: 0 0;
         transform: translate(var(--zoom-x, 0px), var(--zoom-y, 0px)) scale(var(--map-scale, 1));
@@ -44,7 +44,7 @@
         position: absolute;
         width: calc(12px / (var(--map-scale, 1) * var(--mobile-zoom, 1)));
         aspect-ratio: 1 / 1; 
-        border: calc(2px / (var(--map-scale, 1) * var(--mobile-zoom, 1))) solid #782092;
+        border: calc(2px / (var(--map-scale, 1) * var(--mobile-zoom, 1))) solid red;
         background-color: red;
         border-radius: 50%;
         transform: translate(-50%, -50%); 
@@ -54,8 +54,8 @@
     }
 
     /* Стиль для карт */
-    .marker.ghost {
-        background-color: #782092;
+    .marker.pacs {
+        background-color: red;
     }
 
     /* Стиль всплывающего окна с текстом */
@@ -102,7 +102,7 @@
         aspect-ratio: 16 / 9; 
         height: auto; 
         
-        border: calc(2px / (var(--map-scale, 1) * var(--mobile-zoom, 1))) solid #782092;
+        border: calc(2px / (var(--map-scale, 1) * var(--mobile-zoom, 1))) solid red;
         border-radius: 6px;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
         z-index: 100;
@@ -123,13 +123,13 @@
         to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
-    .marker.ghost.collected {
+    .marker.pacs.collected {
         background-color: rgba(102, 102, 102, 0.5); 
         border: 1px solid rgba(153, 153, 153, 0.5); 
         box-shadow: none;                            
     }
 
-    .marker.ghost.collected img {
+    .marker.pacs.collected img {
         opacity: 1 !important;
         filter: none !important;
     }
@@ -146,7 +146,7 @@
     font-family: Arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
-    border: 1px solid #782092;
+    border: 1px solid red;
     z-index: 99999;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -159,7 +159,7 @@
 }
 
 #counter-value {
-    color: #782092;
+    color: red;
 }
 
 /* Кнопка сброса */
@@ -188,7 +188,7 @@
 <body>
     <!-- Минималистичная панель счетчика и сброса -->
 <div class="counter-box">
-    <span>Призраки: <span id="counter-value">0/0</span></span>
+    <span>Пакеты: <span id="counter-value">0/0</span></span>
     <button id="reset-btn" title="Сбросить весь прогресс">✕</button>
 </div>
 
@@ -197,17 +197,12 @@
         <!-- Картинка фона -->
         <img src="./map.jpg" alt="Карта" class="map-image">  
         <!-- ТОЧНЫЕ метки -->
-<div class="marker ghost" id="ghost_1" style="left: 46.7%; top: 12.9%;" data-title="20:00-21:00"><img data-src="./ghosts/1.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_2" style="left: 47.3%; top: 70.9%;" data-title="21:00-22:00"><img data-src="./ghosts/2.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_3" style="left: 67.1%; top: 25.7%;" data-title="22:00-23:00"><img data-src="./ghosts/3.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_4" style="left: 39.7%; top: 78.6%;" data-title="23:00-00:00"><img data-src="./ghosts/4.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_5" style="left: 84.1%; top: 23.9%;" data-title="01:00-02:00"><img data-src="./ghosts/5.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_6" style="left: 57.2%; top: 78.1%;" data-title="02:00-03:00"><img data-src="./ghosts/6.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_7" style="left: 47.7%; top: 39.0%;" data-title="03:00-04:00"><img data-src="./ghosts/7.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_8" style="left: 37.5%; top: 67.3%;" data-title="04:00-05:00"><img data-src="./ghosts/8.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_9" style="left: 27.9%; top: 46.7%;" data-title="05:00-06:00"><img data-src="./ghosts/9.jpg" loading="lazy" alt="в работе"></div>
-<div class="marker ghost" id="ghost_10" style="left: 28.1%; top: 23.9%;" data-title="00:00-01:00"><img data-src="./ghosts/10.jpg" loading="lazy" alt="в работе"></div>
-
+<div class="marker pacs" id="pacs_1" style="left: 46.7%; top: 12.9%;" data-title="Пакет"><img data-src="./pacs/1.jpg" loading="lazy" alt="в работе"></div>
+<div class="marker pacs" style="left: 123.5%; top: 9.5%;" data-title="Пакет 2"><img data-src="./pacs/2.jpg" alt="в работе"></div>
+<div class="marker pacs" style="left: 57.6%; top: 33.7%;" data-title="Пакет 2"><img data-src="./pacs/2.jpg" alt="в работе"></div>
+<div class="marker pacs" style="left: 56.3%; top: 46.4%;" data-title="Пакет 2"><img data-src="./pacs/2.jpg" alt="в работе"></div>
+<div class="marker pacs" style="left: 24.9%; top: 34.0%;" data-title="Пакет 2"><img data-src="./pacs/2.jpg" alt="в работе"></div>
+<div class="marker pacs" style="left: 19.7%; top: 24.1%;" data-title="Пакет 2"><img data-src="./pacs/2.jpg" alt="в работе"></div>
 </div>
 
 <!-- ==========================================
@@ -255,7 +250,7 @@
     .mission-title {
         font-size: 7.5rem;
         letter-spacing: -1px;
-        background: linear-gradient(to bottom, #7527f3 0%, #782092 100%);
+        background: linear-gradient(to bottom, red 0%, #ff3e03 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -343,11 +338,11 @@
 
     // Функция обновления счетчика и видимости кнопки сброса
     function updateCounter() {
-        const total = document.querySelectorAll('.marker.ghost').length;
-        const collected = document.querySelectorAll('.marker.ghost.collected').length;
+        const total = document.querySelectorAll('.marker.pacs').length;
+        const collected = document.querySelectorAll('.marker.pacs.collected').length;
         counterValue.textContent = `${collected}/${total}`;
 
-        // Показываем кнопку "Сброс" только если собрана хотя бы одна тыква
+        // Показываем кнопку "Сброс" только если собрана хотя бы один пакет
         if (collected > 0) {
             resetBtn.style.display = 'inline-block';
         } else {
@@ -377,14 +372,14 @@
     // Обработчик клика по кнопке сброса прогресса
     resetBtn.addEventListener('click', () => {
         if (confirm('Вы уверены, что хотите сбросить весь прогресс фото призраков?')) {
-            // Удаляем статус "собрано" у всех тыкв на карте и из localStorage
-            document.querySelectorAll('.marker.ghost').forEach(marker => {
+            // Удаляем статус "собрано" у всех пакетов на карте и из localStorage
+            document.querySelectorAll('.marker.pacs').forEach(marker => {
                 marker.classList.remove('collected');
                 localStorage.removeItem(marker.id);
             });
             
             // Закрываем открытые скриншоты при сбросе
-            document.querySelectorAll('.marker.ghost').forEach(m => m.classList.remove('show-screenshot'));
+            document.querySelectorAll('.marker.pacs').forEach(m => m.classList.remove('show-screenshot'));
             
             // Обновляем панель счетчика
             updateCounter();
@@ -427,8 +422,8 @@
     }
 
 
-    // 3. БАЗОВАЯ ЛОГИКА (Авто-ID, Сбор тыкв, Показ JPG скринов)
-    document.querySelectorAll('.marker.ghost').forEach((marker, index) => {
+    // 3. БАЗОВАЯ ЛОГИКА (Авто-ID, Сбор пакетов, Показ JPG скринов)
+    document.querySelectorAll('.marker.pacs').forEach((marker, index) => {
         // Автоматически даем ID, если его нет в HTML
         if (!marker.id) marker.id = 'p' + (index + 1);
         
@@ -443,13 +438,13 @@
 
     // Слушатель кликов по карте и меткам
     mapContainer.addEventListener('click', (event) => {
-        const clickedMarker = event.target.closest('.marker.ghost');
+        const clickedMarker = event.target.closest('.marker.pacs');
 
         if (clickedMarker) {
             event.stopPropagation(); 
             if (event.target.tagName === 'IMG') return;
 
-            // Переключение статуса: Клик по тыкве (собрано / не собрано)
+            // Переключение статуса: Клик по пакету (собрано / не собрано)
             if (clickedMarker.classList.contains('collected')) {
                 clickedMarker.classList.remove('collected');
                 localStorage.removeItem(clickedMarker.id); 
@@ -461,9 +456,9 @@
             // Сразу обновляем цифры в счетчике после переключения класса
             updateCounter();
 
-            // ПРОВЕРКА НА RESPECT: Если после клика собраны абсолютно все тыквы
-            const totalItems = document.querySelectorAll('.marker.ghost').length;
-            const collectedItems = document.querySelectorAll('.marker.ghost.collected').length;
+            // ПРОВЕРКА НА RESPECT: Если после клика собраны абсолютно все пакетов
+            const totalItems = document.querySelectorAll('.marker.pacs').length;
+            const collectedItems = document.querySelectorAll('.marker.pacs.collected').length;
             if (collectedItems === totalItems && totalItems > 0) {
                 triggerRespectEffect();
             }
@@ -472,8 +467,8 @@
             if (clickedMarker.classList.contains('show-screenshot')) {
                 clickedMarker.classList.remove('show-screenshot');
             } else {
-                // Сначала закрываем скриншоты у всех остальных тыкв
-                document.querySelectorAll('.marker.ghost').forEach(m => m.classList.remove('show-screenshot'));
+                // Сначала закрываем скриншоты у всех остальных пакетов
+                document.querySelectorAll('.marker.pacs').forEach(m => m.classList.remove('show-screenshot'));
                 
                 // Загружаем картинку только в момент открытия
                 const img = clickedMarker.querySelector('img');
@@ -485,8 +480,8 @@
             }
 
         } else {
-            // Клик мимо тыквы — закрыть все открытые скриншоты
-            document.querySelectorAll('.marker.ghost').forEach(marker => {
+            // Клик мимо пакетов — закрыть все открытые скриншоты
+            document.querySelectorAll('.marker.pacs').forEach(marker => {
                 marker.classList.remove('show-screenshot');
             });
 
@@ -494,9 +489,9 @@
             const rect = mapContainer.getBoundingClientRect();
             const left = (((event.clientX - rect.left) / scale) / 684 * 100).toFixed(1);
             const top = (((event.clientY - rect.top) / scale) / 1017 * 100).toFixed(1);
-            const nextIndex = document.querySelectorAll('.marker.ghost').length + 1;
+            const nextIndex = document.querySelectorAll('.marker.pacs').length + 1;
             
-            console.log(`<div class="marker ghost" style="left: ${left}%; top: ${top}%;" data-title="Тыква ${nextIndex}"><img data-src="./ghosts/${nextIndex}.jpg" alt="в работе"></div>`);
+            console.log(`<div class="marker pacs" style="left: ${left}%; top: ${top}%;" data-title="Пакет ${nextIndex}"><img data-src="./pacs/${nextIndex}.jpg" alt="в работе"></div>`);
             
             // Обновляем счетчик на случай, если вы скопируете новую точку прямо в DOM через инспектор
             updateCounter();

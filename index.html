@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTA5MAPS</title>
-    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <title>GTA3MAPS</title>
+    <link rel="icon" type="image/x-icon" href="favicon.jpg">
     <style>
+        /* 1. Подключаем ваш скачанный шрифт GTA */
+        @font-face {
+            font-family: 'Pricedown';
+            src: url('./fonts/pricedown.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             padding: 40px 20px;
-            background-color: rgb(58, 75, 82); /* Цвет океана как на вашей карте */
-            font-family: Arial, sans-serif;
+            background-color: #81c1ea; /* Цвет океана как на вашей карте */
+            font-family: 'Rubik', Arial, sans-serif;
             color: white;
             display: flex;
             flex-direction: column;
@@ -19,10 +27,46 @@
             min-height: 80vh;
         }
 
+        /* 2. Применяем шрифт GTA и фирменную двойную обводку к главному заголовку */
         h1 {
-            margin-bottom: 30px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Pricedown', 'Arial Black', sans-serif;
+            font-size: 48px;
+            font-weight: normal;
+            letter-spacing: 2.5px; /* Чуть увеличили отступ, чтобы черные рамки соседних букв не слипались в кашу */
+            margin-bottom: 35px;
             text-align: center;
+            color: #ffffff;
+
+            /* Слой 1 (ближе к буквам): толстая черная обводка (сдвиг 3px)
+               Слой 2 (дальше от букв): тонкая золотая кайма (сдвиг 4.5px) */
+            text-shadow: 
+                /* --- ТОЛСТАЯ ЧЕРНАЯ ОБВОДКА --- */
+                -3px -3px 0 #000000,
+                 3px -3px 0 #000000,
+                -3px  3px 0 #000000,
+                 3px  3px 0 #000000,
+                 0px -3px 0 #000000,
+                 0px  3px 0 #000000,
+                -3px  0px 0 #000000,
+                 3px  0px 0 #000000,
+                -2px -3px 0 #000000,
+                 2px -3px 0 #000000,
+                -2px  3px 0 #000000,
+                 2px  3px 0 #000000,
+
+                /* --- ТОНКАЯ ЗОЛОТАЯ КАЙМА СНАРУЖИ --- */
+                -4.5px -4.5px 0 #c8b47c,
+                 4.5px -4.5px 0 #c8b47c,
+                -4.5px  4.5px 0 #c8b47c,
+                 4.5px  4.5px 0 #c8b47c,
+                 0px   -4.5px 0 #c8b47c,
+                 0px    4.5px 0 #c8b47c,
+                -4.5px  0px   0 #c8b47c,
+                 4.5px  0px   0 #c8b47c;
+        }
+
+        h1 span {
+            color: #b80000; /* Темно-красный оттенок для III с обложки игры */
         }
 
         /* Контейнер для кнопок-карт */
@@ -37,72 +81,54 @@
 
         /* Стиль карточки/кнопки */
         .map-card {
-            background: rgba(20, 20, 20, 0.85);
-            border: 2px solid #ff8c00; /* Оранжевый цвет как у ваших меток */
+            background: rgba(20, 20, 20, 0.88);
+            border: 2px solid #c8b47c; /* Золотисто-песочная рамка в стиль заголовка */
             border-radius: 8px;
             padding: 25px;
             width: 260px;
             text-align: center;
             text-decoration: none;
             color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
         }
 
         /* Эффект при наведении */
         .map-card:hover {
             transform: translateY(-5px);
-            background: rgba(40, 40, 40, 0.95);
+            background: rgba(35, 35, 35, 0.95);
+            border-color: #ff0000; /* При наведении рамка подсвечивается красным */
             cursor: pointer;
         }
 
+        /* 3. Применяем шрифт GTA к заголовкам карточек */
         .map-card h2 {
-            margin: 0 0 10px 0;
-            font-size: 20px;
-            color: #ff8c00;
+            font-family: 'Pricedown', 'Arial Black', sans-serif;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin: 0 0 12px 0;
+            font-size: 28px;
+            color: #ff0000;
+            -webkit-text-stroke: 3px #000000;
+            paint-order: stroke fill;
         }
 
         .map-card p {
             margin: 0;
             font-size: 14px;
-            color: #ccc;
+            color: #ddd;
             line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
-    <h1>Интерактивные карты GTA 5</h1>
+    <h1>Интерактивные карты GTA <span>III</span></h1>
 
     <div class="maps-grid">
-        <!-- КАРТА с тыквами -->
-        <a href="./pumpkin.html" class="map-card">
-            <h2>Карта с тыквами</h2>
-            <p>Интерактивная карта с точным расположением всех праздничных тыкв</p>
-        </a>
-
-        <!-- КАРТА с игральными картами -->
-        <a href="./cards.html" class="map-card">
-            <h2>Карта с игральными картами</h2>
-            <p>Интерактивная карта с точным расположением всех игральных карт.</p>
-        </a>
-
-        <!-- КАРТА с игральными картами -->
-        <a href="./ghost.html" class="map-card">
-            <h2>Карта с призраками</h2>
-            <p>Интерактивная карта с точным расположением всех призраков</p>
-        </a>
-
-        <!-- КАРТА с фигурками -->
-        <a href="./piece.html" class="map-card">
-            <h2>Карта с фигурками</h2>
-            <p>Интерактивная карта с точным расположением всех фигурок</p>
-        </a>
-
-        <!-- КАРТА с закладками -->
-        <a href="./LD.html" class="map-card">
-            <h2>Карта с закладками LD Organics</h2>
-            <p>Интерактивная карта с точным расположением всех закладок</p>
+        <a href="./pacs.html" class="map-card">
+            <h2>Карта с пакетами</h2>
+            <p>Интерактивная карта с точным расположением всех пакетов</p>
         </a>
     </div>
 
