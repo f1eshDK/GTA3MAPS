@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GTA3MAPS</title>
-    <link rel="icon" type="image/x-icon" href="favicon.jpg">
+    <link rel="icon" type="image/png" href="./favicons/III.png">
     <style>
-        /* 1. Подключаем ваш скачанный шрифт GTA */
         @font-face {
             font-family: 'Pricedown';
             src: url('./fonts/pricedown.otf') format('opentype');
@@ -17,28 +16,25 @@
         body {
             margin: 0;
             padding: 40px 20px;
-            background-color: #81c1ea; /* Цвет океана как на вашей карте */
+            background-color: #81c1ea; /* Фирменный цвет океана GTA III */
             font-family: 'Rubik', Arial, sans-serif;
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 80vh;
+            min-height: 85vh;
         }
 
-        /* 2. Применяем шрифт GTA и фирменную двойную обводку к главному заголовку */
+        /* Главный заголовок в фирменном стиле GTA III */
         h1 {
             font-family: 'Pricedown', 'Arial Black', sans-serif;
-            font-size: 48px;
+            font-size: 50px;
             font-weight: normal;
-            letter-spacing: 2.5px; /* Чуть увеличили отступ, чтобы черные рамки соседних букв не слипались в кашу */
-            margin-bottom: 35px;
+            letter-spacing: 2.5px;
+            margin-bottom: 40px;
             text-align: center;
             color: #ffffff;
-
-            /* Слой 1 (ближе к буквам): толстая черная обводка (сдвиг 3px)
-               Слой 2 (дальше от букв): тонкая золотая кайма (сдвиг 4.5px) */
             text-shadow: 
                 /* --- ТОЛСТАЯ ЧЕРНАЯ ОБВОДКА --- */
                 -3px -3px 0 #000000,
@@ -69,46 +65,54 @@
             color: #b80000; /* Темно-красный оттенок для III с обложки игры */
         }
 
-        /* Контейнер для кнопок-карт */
         .maps-grid {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
         }
 
-        /* Стиль карточки/кнопки */
+        /* Базовый стиль карточки (использует CSS-переменные цвета) */
         .map-card {
-            background: rgba(20, 20, 20, 0.88);
-            border: 2px solid #c8b47c; /* Золотисто-песочная рамка в стиль заголовка */
-            border-radius: 8px;
-            padding: 25px;
-            width: 260px;
+            /* Цвета по умолчанию, если не задана своя тема */
+            --card-accent: #ff0000;
+            --card-text: #e2e8f0;
+
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid #c8b47c; /* Базовая золотистая рамка GTA III */
+            border-radius: 10px;
+            padding: 25px 20px;
+            width: 240px;
+            min-height: 85px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             text-align: center;
             text-decoration: none;
             color: white;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        /* Эффект при наведении */
+        /* При наведении рамка окрашивается в индивидуальный цвет карты */
         .map-card:hover {
             transform: translateY(-5px);
-            background: rgba(35, 35, 35, 0.95);
-            border-color: #ff0000; /* При наведении рамка подсвечивается красным */
+            background: rgba(30, 30, 30, 0.98);
+            border-color: var(--card-accent);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
             cursor: pointer;
         }
 
-        /* 3. Применяем шрифт GTA к заголовкам карточек */
         .map-card h2 {
             font-family: 'Pricedown', 'Arial Black', sans-serif;
             font-weight: normal;
             letter-spacing: 1px;
             margin: 0 0 12px 0;
-            font-size: 28px;
-            color: #ff0000;
+            font-size: 26px;
+            line-height: 1.15;
+            color: var(--card-accent);
             -webkit-text-stroke: 3px #000000;
             paint-order: stroke fill;
         }
@@ -116,9 +120,38 @@
         .map-card p {
             margin: 0;
             font-size: 14px;
-            color: #ddd;
+            color: var(--card-text);
             line-height: 1.4;
         }
+
+        /* Стиль для счетчика собранных предметов */
+        .progress-text {
+            font-weight: 600;
+            letter-spacing: 0.4px;
+        }
+
+        /* ==========================================
+           ИНДИВИДУАЛЬНЫЕ ЦВЕТА ДЛЯ КАЖДОЙ КАРТЫ
+           ========================================== */
+        
+        /* Скрытые пакеты — фирменный красный */
+        .theme-pacs {
+            --card-accent: #ff2a2a;
+            --card-text: #ffd6d6;
+        }
+
+        /* Заготовки на будущее (просто раскомментируйте и добавьте нужную карточку в HTML):
+        
+        .theme-jumps {
+            --card-accent: #ffaa00;
+            --card-text: #ffe5b0;
+        }
+
+        .theme-rampages {
+            --card-accent: #b86bff;
+            --card-text: #e2c7ff;
+        }
+        */
     </style>
 </head>
 <body>
@@ -126,11 +159,44 @@
     <h1>Интерактивные карты GTA <span>III</span></h1>
 
     <div class="maps-grid">
-        <a href="./pacs.html" class="map-card">
-            <h2>Карта с пакетами</h2>
-            <p>Интерактивная карта с точным расположением всех пакетов</p>
+        <!-- КАРТА со скрытыми пакетами -->
+        <a href="./pacs.html" class="map-card theme-pacs" data-prefix="pacs_" data-total="100">
+            <h2>карта с пакетами</h2>
+            <p class="progress-text">Собрано: 0 / 100</p>
         </a>
     </div>
+
+    <script>
+        function updateMainPageProgress() {
+            document.querySelectorAll('.map-card').forEach(card => {
+                const prefix = card.getAttribute('data-prefix');
+                const total = Number(card.getAttribute('data-total'));
+                const textElement = card.querySelector('.progress-text');
+
+                let count = 0;
+
+                // Перебираем память браузера и ищем ключи с нужным префиксом и значением 'collected'
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(prefix) && localStorage.getItem(key) === 'collected') {
+                        count++;
+                    }
+                }
+
+                // Выводим актуальный счетчик под названием карты
+                if (count >= total && total > 0) {
+                    textElement.textContent = `✔ Собрано: ${count} / ${total}`;
+                    textElement.style.fontWeight = 'bold';
+                } else {
+                    textElement.textContent = `Собрано: ${count} / ${total}`;
+                }
+            });
+        }
+
+        // Запускаем подсчет при открытии главной страницы и при возврате на нее кнопкой «Назад»
+        updateMainPageProgress();
+        window.addEventListener('pageshow', updateMainPageProgress);
+    </script>
 
 </body>
 </html>
