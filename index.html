@@ -38,27 +38,27 @@
             text-shadow: 
                 /* --- ТОЛСТАЯ ЧЕРНАЯ ОБВОДКА --- */
                 -3px -3px 0 #000000,
-                 3px -3px 0 #000000,
+                3px -3px 0 #000000,
                 -3px  3px 0 #000000,
-                 3px  3px 0 #000000,
-                 0px -3px 0 #000000,
-                 0px  3px 0 #000000,
+                3px  3px 0 #000000,
+                0px -3px 0 #000000,
+                0px  3px 0 #000000,
                 -3px  0px 0 #000000,
-                 3px  0px 0 #000000,
+                3px  0px 0 #000000,
                 -2px -3px 0 #000000,
-                 2px -3px 0 #000000,
+                2px -3px 0 #000000,
                 -2px  3px 0 #000000,
-                 2px  3px 0 #000000,
+                2px  3px 0 #000000,
 
                 /* --- ТОНКАЯ ЗОЛОТАЯ КАЙМА СНАРУЖИ --- */
                 -4.5px -4.5px 0 #c8b47c,
-                 4.5px -4.5px 0 #c8b47c,
+                4.5px -4.5px 0 #c8b47c,
                 -4.5px  4.5px 0 #c8b47c,
-                 4.5px  4.5px 0 #c8b47c,
-                 0px   -4.5px 0 #c8b47c,
-                 0px    4.5px 0 #c8b47c,
+                4.5px  4.5px 0 #c8b47c,
+                0px   -4.5px 0 #c8b47c,
+                0px    4.5px 0 #c8b47c,
                 -4.5px  0px   0 #c8b47c,
-                 4.5px  0px   0 #c8b47c;
+                4.5px  0px   0 #c8b47c;
         }
 
         h1 span {
@@ -131,16 +131,14 @@
         }
 
         /* ==========================================
-           ИНДИВИДУАЛЬНЫЕ ЦВЕТА ДЛЯ КАЖДОЙ КАРТЫ
-           ========================================== */
+            ИНДИВИДУАЛЬНЫЕ ЦВЕТА ДЛЯ КАЖДОЙ КАРТЫ
+          ========================================== */
         
         /* Скрытые пакеты — фирменный красный */
         .theme-pacs {
             --card-accent: #ff2a2a;
             --card-text: #ffd6d6;
         }
-
-        /* Заготовки на будущее (просто раскомментируйте и добавьте нужную карточку в HTML):
         
         .theme-jumps {
             --card-accent: #ffaa00;
@@ -151,7 +149,12 @@
             --card-accent: #b86bff;
             --card-text: #e2c7ff;
         }
-        */
+
+        .theme-race {
+            --card-accent: #6b9aff;
+            --card-text: #c7e6ff;
+        }
+
     </style>
 </head>
 <body>
@@ -161,42 +164,60 @@
     <div class="maps-grid">
         <!-- КАРТА со скрытыми пакетами -->
         <a href="./pacs.html" class="map-card theme-pacs" data-prefix="pacs_" data-total="100">
-            <h2>карта с пакетами</h2>
+            <h2>пакеты</h2>
             <p class="progress-text">Собрано: 0 / 100</p>
+        </a>
+        <!-- КАРТА с трамплинами -->
+        <a href="./stunt.html" class="map-card theme-jumps" data-prefix="stunt_" data-total="20">
+            <h2>трамплины</h2>
+            <p class="progress-text">Собрано: 0 / 20</p>
+        </a>
+        <!-- КАРТА со вспышками ярости  -->
+        <a href="./rampage.html" class="map-card theme-rampages" data-prefix="rampage_" data-total="20">
+            <h2>ярость</h2>
+            <p class="progress-text">Собрано: 0 / 20</p>
+        </a>
+        <!-- КАРТА с гонками  -->
+        <a href="./race.html" class="map-card theme-race" data-prefix="race_" data-total="8">
+            <h2>гонки</h2>
+            <p class="progress-text">Собрано: 0 / 8</p>
         </a>
     </div>
 
     <script>
-        function updateMainPageProgress() {
-            document.querySelectorAll('.map-card').forEach(card => {
-                const prefix = card.getAttribute('data-prefix');
-                const total = Number(card.getAttribute('data-total'));
-                const textElement = card.querySelector('.progress-text');
+    function updateMainPageProgress() {
+        document.querySelectorAll('.map-card').forEach(card => {
+            const prefix = card.getAttribute('data-prefix');
+            const total = Number(card.getAttribute('data-total'));
+            const textElement = card.querySelector('.progress-text');
 
-                let count = 0;
+            let count = 0;
 
-                // Перебираем память браузера и ищем ключи с нужным префиксом и значением 'collected'
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key && key.startsWith(prefix) && localStorage.getItem(key) === 'collected') {
-                        count++;
-                    }
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith(prefix) && localStorage.getItem(key) === 'collected') {
+                    count++;
                 }
+            }
 
-                // Выводим актуальный счетчик под названием карты
-                if (count >= total && total > 0) {
-                    textElement.textContent = `✔ Собрано: ${count} / ${total}`;
-                    textElement.style.fontWeight = 'bold';
-                } else {
-                    textElement.textContent = `Собрано: ${count} / ${total}`;
-                }
-            });
-        }
+            // Если это карта Ярости — делим найденные точки на 2
+            if (prefix === 'rampage_') {
+                count = Math.floor(count / 2);
+            }
 
-        // Запускаем подсчет при открытии главной страницы и при возврате на нее кнопкой «Назад»
-        updateMainPageProgress();
-        window.addEventListener('pageshow', updateMainPageProgress);
-    </script>
+            if (count >= total && total > 0) {
+                textElement.textContent = `✔ Собрано: ${count} / ${total}`;
+                textElement.style.fontWeight = 'bold';
+            } else {
+                textElement.textContent = `Собрано: ${count} / ${total}`;
+                textElement.style.fontWeight = 'normal';
+            }
+        });
+    }
+
+    updateMainPageProgress();
+    window.addEventListener('pageshow', updateMainPageProgress);
+</script>
 
 </body>
 </html>
